@@ -1,0 +1,32 @@
+{
+  "name": "ymbra/acrelianews-api",
+  "description": "PHP library for Acrelianews API v2",
+  "type": "library",
+  "keywords": ["acrelia", "acrelianews", "newsletter", "mail"],
+  "license": "GPL-3.0-or-later",
+  "authors": [
+      {
+          "name": "Nacho Salvador",
+          "email": "nacho.salvador@ymbra.com"
+      }
+  ],
+  "homepage": "https://github.com/ymbra/acrelianews-api-php",
+  "require": {
+      "guzzlehttp/guzzle": "^6.3.3",
+      "php": ">=7.0"
+  },
+  "require-dev": {
+      "phpunit/phpunit": "^6.0",
+      "squizlabs/php_codesniffer": "^3.3.1"
+  },
+  "autoload": {
+      "psr-4": {
+          "Ymbra\\Acrelianews\\": "src/"
+      }
+  },
+  "autoload-dev": {
+      "psr-4": {
+          "Ymbra\\Acrelianews\\Tests\\": "tests/src/"
+      }
+  }
+}
