@@ -1,10 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Ymbra\Acrelianews;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
-use Ymbra\Acrelianews\AcrelianewsException;
+use Ymbra\Acrelianews\Http\HttpClientInterface;
 
 /**
  * Acrelianews library.
@@ -15,39 +13,44 @@ class Acrelianews
 {
     /**
      * The HTTP client.
-     *
-     * @var Client $client
+     * @var HttpClientInterface
      */
     protected $client;
 
     /**
      * The REST API endpoint.
-     *
-     * @var string $endpoint
+     * @var string
      */
     protected $endpoint = 'http://manager.acrelianews.com/api/v2';
 
     /**
      * The Acrelianews API key to authentication.
-     *
-     * @var string $apiKey
+     * @var string
      */
     private $apiKey;
 
-
-    /**
-     * Constructor.
-     */
-    public function __construct($apiKey)
+    public function __construct(string $apiKey)
     {
         $this->apiKey = $apiKey;
-        $this->client = new Client();
+        $this->client = new Http\GuzzleHttpClient();
+    }
+
+
+    public function getClient(): HttpClientInterface
+    {
+        return $this->client;
+    }
+
+    public function getEndpoint(): string
+    {
+        return $this->endpoint;
     }
 
     /**
      * Sends request to the Acrelianews API.
+     * @throws \Exception
      */
-    public function request($method, $path, $tokens = null, $params = [])
+    public function request(string $method, string $path, array $tokens = null, array $params = []): string
     {
         if ($tokens) {
             foreach ($tokens as $key => $value) {
@@ -61,12 +64,11 @@ class Acrelianews
         $uri = $this->endpoint . $path;
         $options['query'] = array_merge($defaultParams, $params);
 
-        try {
-            $response = $this->client->request($method, $uri, $options);
+        return $this->client->handleRequest($method, $uri, $options);
+    }
 
-            return json_decode($response->getBody());
-        } catch (RequestException $e) {
-            throw new AcrelianewsException($e->getMessage(), $e->getCode(), $e);
-        }
+    public function setClient(HttpClientInterface $client): void
+    {
+        $this->client = $client;
     }
 }

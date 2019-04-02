@@ -1,20 +1,19 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Ymbra\Acrelianews;
 
 /**
  * Acrelianews contact.
- *
  * @package Ymbra\Acrelianews
  */
 class AcrelianewsContact extends Acrelianews
 {
     /**
      * Adds new contact.
-     *
      * @see http://manager.acrelianews.com/api/v2/apidoc/#api-Contactos-Post_Lists_Contacts_Add
+     * @param string[] $options
      */
-    public function add($listId, $email, $emailFormat = 2, $customFields = [])
+    public function add(int $listId, string $email, int $emailFormat = 2, array $customFields = []): string
     {
         $tokens = [
           'list_id' => $listId,
@@ -30,10 +29,9 @@ class AcrelianewsContact extends Acrelianews
 
     /**
      * Gets contact from list by email.
-     *
      * @see http://manager.acrelianews.com/api/v2/apidoc/#api-Contactos-Get_List_Contacts_Email
      */
-    public function getByEmail($listId, $email)
+    public function getByEmail(int $listId, string $email): string
     {
         $tokens = [
           'list_id' => $listId,
@@ -45,10 +43,9 @@ class AcrelianewsContact extends Acrelianews
 
     /**
      * Gets contact from list by ID.
-     *
      * @see http://manager.acrelianews.com/api/v2/apidoc/#api-Contactos-Get_List_Contacts_Id
      */
-    public function getById($listId, $contactId)
+    public function getById(int $listId, int $contactId): string
     {
         $tokens = [
           'list_id' => $listId,

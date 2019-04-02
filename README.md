@@ -27,7 +27,9 @@ $contactApi = AcrelianewsContact('THE_API_KEY');
 $listId = 1234;
 $email = 'test@example.com';
 
-$contact = $contactApi->getByEmail($listId,  $email);
+$response = $contactApi->getByEmail($listId,  $email);
+
+echo json_decode($response)->email_address;
 ```
 
 ## Testing
