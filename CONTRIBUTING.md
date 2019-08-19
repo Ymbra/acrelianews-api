@@ -21,11 +21,11 @@ $ vendor/bin/phpunit
 Run PHP code sniffer to check:
 
 ``` bash
-$ vendor/bin/phpcs --standanrd=PSR2 src tests
+$ vendor/bin/phpcs --standard=PSR2 src tests
 ```
 
 Run PHP code beautifier to fix it:
 
 ``` bash
-$ vendor/bin/phpcbf --standanrd=PSR2 src tests
+$ vendor/bin/phpcbf --standard=PSR2 src tests
 ```
