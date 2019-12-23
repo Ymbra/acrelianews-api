@@ -16,7 +16,7 @@ class AcrelianewsContact extends Acrelianews
     public function add(int $listId, string $email, int $emailFormat = 2, array $customFields = []): string
     {
         $tokens = [
-          'list_id' => $listId,
+            'id' => $listId,
         ];
         $params = [
             'email_address' => $email,
@@ -24,7 +24,27 @@ class AcrelianewsContact extends Acrelianews
             'custom_fields' => $customFields,
         ];
 
-        return $this->request('POST', '/lists/{list_id}/contacts', $tokens, $params);
+        return $this->request('POST', '/lists/{id}/contacts', $tokens, $params);
+    }
+
+    /**
+     * Edits contact.
+     * @see http://manager.acrelianews.com/api/v2/apidoc/#api-Contactos-Post_Lists_Contacts_Edit
+     * @param string[] $options
+     */
+    public function edit(int $listId, string $email, int $subscribe, int $emailFormat = 2, array $customFields = []): string
+    {
+        $tokens = [
+            'id' => $listId,
+            'email' => $email,
+        ];
+        $params = [
+            'subscribe ' => $subscribe,
+            'email_format' => $emailFormat,
+            'custom_fields' => $customFields,
+        ];
+
+        return $this->request('POST', '/lists/{id}/contacts/{email}', $tokens, $params);
     }
 
     /**
@@ -34,11 +54,11 @@ class AcrelianewsContact extends Acrelianews
     public function getByEmail(int $listId, string $email): string
     {
         $tokens = [
-          'list_id' => $listId,
-          'email' => $email,
+            'id' => $listId,
+            'email' => $email,
         ];
 
-        return $this->request('GET', '/lists/{list_id}/contacts/{email}', $tokens);
+        return $this->request('GET', '/lists/{id}/contacts/{email}', $tokens);
     }
 
     /**
@@ -48,10 +68,10 @@ class AcrelianewsContact extends Acrelianews
     public function getById(int $listId, int $contactId): string
     {
         $tokens = [
-          'list_id' => $listId,
-          'contact_id' => $contactId,
+            'id' => $listId,
+            'contact_id' => $contactId,
         ];
 
-        return $this->request('GET', '/lists/{list_id}/contacts/{contact_id}', $tokens);
+        return $this->request('GET', '/lists/{id}/contacts/{contact_id}', $tokens);
     }
 }

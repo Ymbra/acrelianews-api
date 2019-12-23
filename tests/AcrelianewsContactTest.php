@@ -38,6 +38,24 @@ class AcrelianewsContactTest extends TestCase
         );
     }
 
+    public function testEditContact()
+    {
+        $listId = '1244';
+        $email = 'test@example.com';
+        $subscribe = 1;
+    
+        $this->contact->edit($listId, $email, $subscribe);
+
+        $this->assertEquals(
+            'POST',
+            $this->contact->getClient()->method
+        );
+        $this->assertEquals(
+            $this->contact->getEndpoint() . '/lists/' . $listId . '/contacts/' . $email,
+            $this->contact->getClient()->uri
+        );
+    }
+
     public function testGetContactByEmail()
     {
         $listId = '1244';
