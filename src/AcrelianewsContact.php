@@ -51,27 +51,27 @@ class AcrelianewsContact extends Acrelianews
      * Gets contact from list by email.
      * @see http://manager.acrelianews.com/api/v2/apidoc/#api-Contactos-Get_List_Contacts_Email
      */
-    public function getByEmail(int $listId, string $email): string
+    public function getByEmail(int $listId, string $email, bool $customFields = TRUE): string
     {
         $tokens = [
             'id' => $listId,
             'email' => $email,
         ];
 
-        return $this->request('GET', '/lists/{id}/contacts/{email}', $tokens);
+        return $this->request('GET', '/lists/{id}/contacts/{email}', $tokens, ['custom_fields' => $customFields]);
     }
 
     /**
      * Gets contact from list by ID.
      * @see http://manager.acrelianews.com/api/v2/apidoc/#api-Contactos-Get_List_Contacts_Id
      */
-    public function getById(int $listId, int $contactId): string
+    public function getById(int $listId, int $contactId, bool $customFields = TRUE): string
     {
         $tokens = [
             'id' => $listId,
             'contact_id' => $contactId,
         ];
 
-        return $this->request('GET', '/lists/{id}/contacts/{contact_id}', $tokens);
+        return $this->request('GET', '/lists/{id}/contacts/{contact_id}', $tokens, ['custom_fields' => $customFields]);
     }
 }
