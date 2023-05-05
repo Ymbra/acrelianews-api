@@ -54,7 +54,7 @@ class Acrelianews
     {
         if ($tokens) {
             foreach ($tokens as $key => $value) {
-                $path = str_replace('{' . $key . '}', $value, $path);
+                $path = str_replace('{' . $key . '}', (string) $value, $path);
             }
         }
 
